@@ -49,8 +49,8 @@ RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 # install rdkafka
 RUN curl -fsSLO --compressed "https://github.com/edenhill/librdkafka/archive/v0.11.6.tar.gz" \
-  && tar -xzf librdkafka-0.11.6.tar.gz -C /tmp/ \
-  && rm -rf librdkafka-0.11.6.tar.gz \
+  && tar -xzf v0.11.6.tar.gz -C /tmp/ \
+  && rm -rf v0.11.6.tar.gz \
   && cd /tmp/librdkafka-0.11.6/ \
   && ./configure \
   && make \
