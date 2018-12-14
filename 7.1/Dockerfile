@@ -54,7 +54,7 @@ RUN curl -fsSLO --compressed "https://github.com/edenhill/librdkafka/archive/v0.
   && cd /tmp/librdkafka-0.11.6/ \
   && ./configure \
   && make \
-  && make install
+  && make install \
   && rm -rf /tmp/librdkafka-0.11.6 \
   && pecl install rdkafka
 
