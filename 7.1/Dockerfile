@@ -38,10 +38,6 @@ RUN pecl install xdebug
 # install redis
 RUN pecl install redis
 
-# drush command
-RUN curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar" && \
-    chmod +x /usr/local/bin/drush
-
 # install composer
 RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php && \
     php composer-setup.php && \
@@ -51,10 +47,16 @@ RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
 # config china mirror
 RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
-# install drupal console
-RUN curl https://drupalconsole.com/installer -L -o drupal.phar && \
-    mv drupal.phar /usr/local/bin/drupal && \
-    chmod +x /usr/local/bin/drupal
+# install rdkafka
+RUN curl -fsSLO --compressed "https://github.com/edenhill/librdkafka/archive/v0.11.6.tar.gz" \
+  && tar -xzf librdkafka-0.11.6.tar.gz -C /tmp/ \
+  && rm -rf librdkafka-0.11.6.tar.gz \
+  && cd /tmp/librdkafka-0.11.6/ \
+  && ./configure \
+  && make \
+  && make install
+  && rm -rf /tmp/librdkafka-0.11.6 \
+  && pecl install rdkafka
 
 VOLUME ["/usr/local/etc","/app/web"]
 WORKDIR /app/web
